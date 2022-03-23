@@ -2,6 +2,7 @@ def prepareArtifacts() {
   stage('Prepare Artifacts') {
     if(COMPONENT == "frontend") {
       sh '''
+        ls -l
         APP_VERSION=`cat VERSION.md | grep ^# | head -1 | sed -e 's/#//'`
         cd static
         zip -r ../${COMPONENT}-${APP_VERSION}.zip * 
