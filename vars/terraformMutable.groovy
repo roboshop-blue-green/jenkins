@@ -8,6 +8,7 @@ def call() {
       ansiColor('xterm') {
         sh '''
           cd terraform-mutable 
+          export TF_VAR_APP_VERSION=$(cat VERSION)
           make dev-apply
         '''
       }
