@@ -129,3 +129,30 @@ pipelineJob('CI-Pipelines/shipping') {
   }
 }
 
+folder('Terraform-Mutable') {
+  displayName('Terraform-Mutable')
+  description('Terraform-Mutable')
+}
+
+pipelineJob('Terraform-Mutable/cart') {
+  configure { flowdefinition ->
+    flowdefinition << delegate.'definition'(class:'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition',plugin:'workflow-cps') {
+      'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
+        'userRemoteConfigs' {
+          'hudson.plugins.git.UserRemoteConfig' {
+            'url'('https://github.com/roboshop-blue-green/cart')
+          }
+        }
+        'branches' {
+          'hudson.plugins.git.BranchSpec' {
+            'name'('*/main')
+          }
+        }
+      }
+      'scriptPath'('terraform-mutable/Jenkinsfile')
+      'lightweight'(true)
+    }
+  }
+}
+
+
