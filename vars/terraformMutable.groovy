@@ -5,10 +5,12 @@ def call() {
       checkout scm
     }
     stage("Terraform") {
-      sh '''
-        cd terraform-mutable 
-        make dev-apply
-      '''
+      ansiColor('xterm') {
+        sh '''
+          cd terraform-mutable 
+          make dev-apply
+        '''
+      }
     }
   }
 }
